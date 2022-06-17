@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Metablok</title>
+  <base href="/">
+  <script src="https://cdn.agora.io/sdk/release/AgoraRTCSDK-3.6.10.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body id="body">
+  <div id="root" style="width: 100%; height:90%;"></div>
+  <div style=" bottom: 0;">
+    <div id="open-microphone-button" className="microphone-button">
+      <img src="TemplateData/open-microphone-icon.png" />
+      <p>Open Microphone ('O' on keyboard)</p>
+    </div>
+    <div id="close-microphone-button" className="microphone-button">
+      <img src="TemplateData/closed-microphone-icon.png" />
+      <p>Close Microphone ('C' on keyboard)</p>
+    </div>
+  </div>
+  <div id="me"></div>
+  <div id="remote-container"></div>
+  <script src="agoraConfig.js"></script>
+</body>
+
+</html>
