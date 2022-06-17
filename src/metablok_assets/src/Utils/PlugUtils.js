@@ -72,25 +72,31 @@ export async function Pay(cbIndex, unityContext, to, amount) {
       if (transferStatus === "COMPLETED") {
         data.result = `Plug wallet transferred ${amount} e8s`;
         unityContext.send("ReactApi", "HandleCallback", JSON.stringify(data));
+        return;
       } else if (transferStatus === "PENDING") {
         console.log("Plug wallet is pending.");
         data.result = `Plug wallet transferred ${amount} e8s`;
         unityContext.send("ReactApi", "HandleCallback", JSON.stringify(data));
+        return;
       } else {
         data.error = "Plug wallet failed to transfer";
         unityContext.send("ReactApi", "HandleCallback", JSON.stringify(data));
+        return;
       }
     } else {
       data.error = "Plug wallet doesn't have enough balance";
       unityContext.send("ReactApi", "HandleCallback", JSON.stringify(data));
+      return;
     }
   } else {
     data.error = "Plug wallet connection was refused";
     unityContext.send("ReactApi", "HandleCallback", JSON.stringify(data));
+    return;
   }
 
   setTimeout(() => {
     data.error = "Timeout";
     unityContext.send("ReactApi", "HandleCallback", JSON.stringify(data));
+    return;
   }, 5000);
 }

@@ -15,6 +15,9 @@ const unityContext = new UnityContext({
 });
 
 function App() {
+  
+  console.log("My App init!!!");
+
   UnityContextUtils.AddUnityListeners(unityContext);
   document.querySelector("#close-microphone-button").classList.add("display-none");
   return (
