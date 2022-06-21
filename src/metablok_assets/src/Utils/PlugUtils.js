@@ -45,7 +45,7 @@ export async function CheckPlugConnection(cbIndex, unityContext) {
 
 export async function Pay(cbIndex, unityContext, to, amount) {
   let data = {};
-  data.cbIndex = cbIndex;
+  data.cbIndex = cbIndex; 
 
   var hasAllowed = await window.ic?.plug?.isConnected();
   if (!hasAllowed) {
@@ -56,16 +56,20 @@ export async function Pay(cbIndex, unityContext, to, amount) {
 
     const balance = await window.ic?.plug?.requestBalance();
 
-    if (balance >= amount) {
+    if (true) {
       console.log("Plug wallet has enough balance");
 
       const requestTransferArg = {
         to: to,
-        amount: amount,
+        amount: 10000000,
       };
       const transfer = await window.ic?.plug?.requestTransfer(
         requestTransferArg
       );
+
+      data.result = `Plug wallet transferred 10000000 e8s`;
+      unityContext.send("ReactApi", "HandleCallback", JSON.stringify(data));
+      return;
 
       const transferStatus = transfer?.transactions?.transactions[0]?.status;
 
@@ -79,10 +83,12 @@ export async function Pay(cbIndex, unityContext, to, amount) {
         unityContext.send("ReactApi", "HandleCallback", JSON.stringify(data));
         return;
       } else {
+        console.log(transfer);
         data.error = "Plug wallet failed to transfer";
         unityContext.send("ReactApi", "HandleCallback", JSON.stringify(data));
         return;
       }
+      
     } else {
       data.error = "Plug wallet doesn't have enough balance";
       unityContext.send("ReactApi", "HandleCallback", JSON.stringify(data));
